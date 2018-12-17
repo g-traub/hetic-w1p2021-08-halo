@@ -1,0 +1,17 @@
+{
+  "name": "sass",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html src/screens/*.html",
+    "build": "parcel build src/index.html src/screens/*.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-sass": "^4.11.0",
+    "parcel-bundler": "^1.10.3"
+  }
+}
