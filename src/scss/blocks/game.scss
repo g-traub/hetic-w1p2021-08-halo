@@ -8,13 +8,18 @@
 }
 
 .game__tile{
+  width: 58px;
+  height: 58px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.game__tile--accessible{
+  background-color: greenyellow; 
+}
 
 .game__wall{
-  border: solid green 1px;
+  border: solid rgb(0, 128, 0) 1px;
 }
 
 .game__character{
@@ -25,4 +30,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  font-size: 12px;
+}
+
+.game__wall--clicked{
+  background-color: rgb(24, 15, 4);
 }
