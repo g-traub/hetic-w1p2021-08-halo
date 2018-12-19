@@ -1,1 +1,1 @@
- lien du jeu : https://g-traub.github.io/hetic-w1p2021-08-halo/
+ lien du jeu : https://infallible-hopper-45b215.netlify.com/
