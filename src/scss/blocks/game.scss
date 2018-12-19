@@ -1,3 +1,49 @@
+@keyframes jumpRight {
+  0%   { transform: translateY(0) translateX(0); }
+  25%  { transform: translateY(-60px) translateX(62.1px); }
+  52%  { transform: translateY(-70px) translateX(99.3px); }
+  61%  { transform: translateY(-68px) translateX(110px); }
+  70%  { transform: translateY(-55px)  translateX(124px); }
+  80%  { transform: translateY(0) translateX(138px); }
+  100% { transform: translateY(0) translateX(138px); }
+}
+
+@keyframes jumpLeft {
+  0%   { transform: translateY(0) translateX(0); }
+  25%  { transform: translateY(-60px) translateX(-62.1px); }
+  52%  { transform: translateY(-70px) translateX(-99.3px); }
+  61%  { transform: translateY(-68px) translateX(-110px); }
+  70%  { transform: translateY(-55px)  translateX(-124px); }
+  80%  { transform: translateY(0) translateX(-138px); }
+  100% { transform: translateY(0) translateX(-138px); }
+}
+/* 190px */
+@keyframes jumpUp {
+  0%   { transform: translateY(0) translateX(0); }
+  25%  { transform: translateY(-160px) translateX(0); }
+  52%  { transform: translateY(-190px) translateX(0);
+        z-index:0; 
+       }
+  61%  { transform: translateY(-160px) translateX(0);  
+    z-index:0; 
+  }
+  70%  { transform: translateY(-138px)  translateX(0); 
+    z-index:0; 
+  }
+  100% { transform: translateY(-138px)  translateX(0);  
+    z-index:0; 
+  }
+}
+
+@keyframes jumpDown {
+  0%   { transform: translateY(0) translateX(0); }
+  25%  { transform: translateY(-30px) translateX(0); }
+  52%  { transform: translateY(70px) translateX(0); }
+  61%  { transform: translateY(85px) translateX(0); }
+  70%  { transform: translateY(138px)  translateX(0); }
+  100% { transform: translateY(138px)  translateX(0); }
+}
+
 .game__grid{
   width: 600px;
   height: 600px;
@@ -13,13 +59,33 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 .game__tile--accessible{
   background-color: greenyellow; 
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
+}
+.tile1{
+  background-image: url("../img/tile1.png");
+}
+.tile2{
+  background-image: url("../img/tile2.png");
+}
+.tile3{
+  background-image: url("../img/tile3.png");
+}
+.tile4{
+  background-image: url("../img/tile4.png");
+}
+.tile5{
+  background-image: url("../img/tile5.png");
 }
 
 .game__wall{
-  border: solid rgb(0, 128, 0) 1px;
+  background-image: url("../img/wall-empty.png");
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
 .game__character{
@@ -31,6 +97,7 @@
   justify-content: center;
   align-items:flex-end;
   font-size: 12px;
+  z-index: 1;
 }
 
 .player1__picture{
@@ -43,4 +110,26 @@
 .--hover{
   background-color: rgb(24, 15, 4);
   opacity: 0.3;
+}
+
+.--jumpRight{
+  animation: jumpRight 0.6s normal forwards linear;
+  animation-delay: 0.3;
+}
+
+.--jumpLeft{
+  animation: jumpLeft 0.6s normal forwards linear;
+  animation-delay: 0.3;
+}
+
+.--jumpUp{
+  animation: jumpUp 0.6s normal forwards linear;
+  animation-delay: 0.3;
+  z-index: 100;
+}
+
+.--jumpDown{
+  animation: jumpDown 0.6s normal forwards linear;
+  animation-delay: 0.3;
+  z-index: 100;
 }
