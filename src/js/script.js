@@ -16,8 +16,8 @@ function game() {
 
     //numérote les cases
     tiles.forEach(element => {
-      let random = Math.floor(Math.random() * ( 5 - 1 +1)) + 1;
-      element.classList.add(`tile${random}`);
+      /* let random = Math.floor(Math.random() * ( 5 - 1 +1)) + 1;
+      element.classList.add(`tile${random}`); */
       element.addEventListener('click', function () {
         clickHandler(element);
       })
@@ -39,7 +39,7 @@ function game() {
     walls.forEach(item => {
       // vertical permet de changer le nombre de colonnes qui n'est pas le même d'une ligne a l'autre.
       if (vertical) {
-
+        item.classList.add('game__wall--vertical');
         if (column < 8) {
           item.dataset.column = column;
           column++;
@@ -52,6 +52,7 @@ function game() {
           vertical = false;
         }
       } else {
+        item.classList.add('game__wall--horizontal');
         if (column < 9) {
           item.dataset.column = column;
           column++;
