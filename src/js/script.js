@@ -281,7 +281,6 @@ function game() {
 
   //GESTION DU CLIC
   function clickHandler(clicked) {
-
     if (turn === 'player1') {
       if (clicked.firstElementChild == player1) {
         checkAround(player1);
