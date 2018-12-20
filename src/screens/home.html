@@ -1,1 +1,115 @@
-HOME
+<div class="home">
+  <h1 class="home__title">Morty Maze</h1>
+  <div class="home__select">
+    <h2 class="select__player">Player 1</h2>
+    <h3 class="select__title">Choose your Morty</h3>
+    <div class="select__mortys">
+      <img
+        class="select__morty"
+        src="../assets/img/morty.png"
+        alt="Morty_Image"
+        name="morty"
+      />
+      <img
+        class="select__morty"
+        src="../assets/img/red.png"
+        alt="Redhead_Morty_Image"
+        name="roux"
+      />
+      <img
+        class="select__morty"
+        src="../assets/img/martien.png"
+        alt="Martien_Morty_Image"
+        name="martien"
+      />
+      <img
+        class="select__morty"
+        src="../assets/img/choubab.png"
+        alt="Choubab_Morty_Image"
+        name="choubab"
+      />
+    </div>
+  </div>
+
+  <section class="home__buttons">
+    <div class="button button__start button__start--inactive">Start</div>
+    <div class="button button__rules">Rules</div>
+    <div class="button button__credits">Credits</div>
+  </section>
+  <section class="home__footer">
+      <audio id="audioPlayer" loop>
+        <source src="../assets/audio/Rick_Morty_Music.mp3" />
+      </audio>
+      <div class="footer__soundOff"></div>
+      <div class="footer__soundOn"></div>
+    </section>
+  <div class="footer__easteregg">
+    <div class="easteregg__rick rick">
+      <img class="rick__picture" src="../assets/img/rick-easteregg.png" alt="image rick">
+  </div>
+</div>
+
+<div class="rules">
+  <div class="rules__exit">
+    <img src="../assets/img/croix.png">
+  </div>
+  <div class="rules__arrow--left">
+    <img src="../assets/img/left-arrow.png">
+  </div>
+  <div class="rules__arrow--right">
+    <img src="../assets/img/right-arrow.png">
+  </div>
+  <div class="rules__content">
+    <div class="rules__rule rule--visible">
+        <img class="rules__img" src="../assets/img/Rules1.png">
+        <p class="rules__explanation">Moving :<br>
+        In turns, each player chooses either to move his pawn or to pose one of his barriers.<br>
+        The player moves one case at a time, horizontally or vertically, forward or backwards ; the barriers block the player.
+     </p>
+    </div>
+    <div class="rules__rule">
+        <img class="rules__img" src="../assets/img/Rules2.png">
+        <p class="rules__explanation">Barriers :<br>
+          A barrier is 2 tiles long.<br>
+          It must be placed between tiles.<br>
+          The laying of barriers can help the player to build his own path or to slow down his opponent.
+          It's forbidden to completely block the other player.
+     </p>
+    </div>
+    <div class="rules__rule">
+      <img class="rules__img" src="../assets/img/Rules3.png">
+      <p class="rules__explanation">When the two players are in front of each other, it's possible to jump over the other player.</p>
+    </div>
+    <div class="rules__rule">
+      <img class="rules__img">
+      <p class="rules__explanation">When the two players are in front of each other, it's possible to jump over the other player.</p>
+    </div>
+  </div> 
+  <ul class="rules__dots">
+    <li class="dot dot--active"></li>
+    <li class="dot"></li>
+    <li class="dot"></li>
+    <li class="dot"></li>
+  </ul>
+</div>
+
+<div class="credits">
+    <div class="credits__exit">
+        <img src="../assets/img/croix.png">
+      </div>
+  <h3 class="credits__title">Made by :</h3>
+  <div class="credits__names">
+    <p class="credits__name">Mohamed Karoui</p>
+    <p class="credits__name">Guillaume Traub</p>
+    <p class="credits__name">Loïc Torres</p>
+    <p class="credits__name">Clément Sabourin</p>
+    <p class="credits__name">Anouk Pakeeree</p>
+  </div>
+  <p>(in 3 days)</p>
+  <a href="https://github.com/g-traub/hetic-w1p2021-08-halo">
+    <div class="credits__link">
+      <p>see the code on github</p>
+      <svg xmlns="http://www.w3.org/2000/svg" height="32" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    </div>
+  </a>
+</div>

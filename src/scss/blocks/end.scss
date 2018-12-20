@@ -1,0 +1,41 @@
+.end{
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  font-family: "VT323", regular;
+  color: #6FC149;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+.end__winner{
+  font-size: 70px;
+}
+
+.end__img{
+  height: 50%;
+}
+
+.end__buttons{
+  text-align: center;
+  padding-bottom: 30px;
+  font-size:20px;
+}
+
+.end__buttons:hover{
+  cursor: pointer;
+}
+.button{
+  margin: 5px;
+}
+.button__restart{
+  font-size: 48px;
+  padding-top:20px;
+}
+
+.button__restart:hover{
+  text-decoration: underline;
+}

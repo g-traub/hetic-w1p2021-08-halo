@@ -1,11 +1,192 @@
-oxo.screens.loadScreen('game', game);
+function credits(){
+  let credits = document.querySelector('.credits');
+  document.querySelector('.button__credits').addEventListener('click', function (){
+    credits.style.display = 'flex';
+  })
+  //Ajouter le truc pour fermer
+  document.querySelector('.credits__exit').addEventListener('click', function (){
+    credits.style.display = 'none';
+  })
+}
+
+function musicHandler(){
+  //Gestion du son
+  let playPromise = document.querySelector('#audioPlayer').play();
+  let soundOn = document.querySelector('.footer__soundOn');
+  let soundOff = document.querySelector('.footer__soundOff');
+
+  if (playPromise !== undefined) {
+    playPromise.then(function() {
+      soundOff.style.display = 'none';
+      soundOn.style.display = 'block';
+    }).catch(function(error) {
+      
+    });
+  }
+
+  soundOn.addEventListener('click', function(){
+    soundOn.style.display = 'none';
+    soundOff.style.display = 'block';
+    document.querySelector('#audioPlayer').pause();
+  });
+  soundOff.addEventListener('click', function(){
+    soundOff.style.display = 'none';
+    soundOn.style.display = 'block';
+    document.querySelector('#audioPlayer').play();
+  });
+}
+
+let winner;
+
+oxo.screens.loadScreen('home',  initHome);
+
+let selectedPlayer1 ;
+let selectedPlayer2 ;
+
+function initHome(){
+  let count;
+  let startButton = document.querySelector('.button__start');
+  let mortys = document.querySelectorAll('.select__morty');
+
+  musicHandler();
+  credits();
+
+  //Gestion des règles
+  let rules = document.querySelector('.rules');
+  document.querySelector('.button__rules').addEventListener('click', function(){
+    rules.style.display = 'flex';
+  });
+  document.querySelector('.rules__exit').addEventListener('click', function(){
+    rules.style.display = 'none';
+  })
+  
+
+  startButton.addEventListener('mouseover', function(){
+    let count = 0;
+    counter = setInterval(function(){
+      count++
+      console.log(count);
+      if (count===5){
+        document.querySelector('.easteregg__rick').classList.add('easteregg__rick--visible');
+      }
+    },
+    1000)
+  });
+  startButton.addEventListener('mouseout', function(){
+    clearInterval(counter);
+    document.querySelector('.easteregg__rick').classList.remove('easteregg__rick--visible');
+  });
+
+  //Gestion du carousel pour les règles
+  var index = 0;
+  let arrowLeft = document.querySelector('.rules__arrow--left');
+  let arrowRight = document.querySelector('.rules__arrow--right');
+  let list = document.querySelectorAll('.rules__rule');
+  let dots = document.querySelectorAll('.dot');
+  console.log(list);
+
+  function navigation(index){
+    arrowLeft.classList.toggle('arrow--hidden', index === 0);
+    arrowRight.classList.toggle('arrow--hidden', index === 3);
+
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.remove('dot--active');
+    }
+    dots[index].classList.add('dot--active');
+  }
+
+  function jump(to) {
+    console.log(index);
+    list[index].classList.remove('rule--visible');
+    index = to;
+    if (index > 3)
+      index = 3;
+    if (index < 0)
+      index = 0;
+    list[index].classList.add('rule--visible');
+    navigation(index);
+  }
+
+  arrowLeft.addEventListener('click', function(){
+    jump(index - 1);
+   
+  });
+  arrowRight.addEventListener('click', function(){
+    jump(index + 1);
+  });
+
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].addEventListener('click', function() {
+      jump(i);
+    });
+  }
+  navigation(0);
+  
+  //Gestion choix des persos
+  function mortysEvent (e) {
+    e.target.classList.add('select__morty--blocked');
+    let player = document.querySelector('.select__player').innerHTML;
+    if (player == 'Player 1'){
+      selectedPlayer1 = e.target.name;
+      e.target.removeEventListener('click', mortysEvent);
+      document.querySelector('.select__player').innerHTML = 'Player 2';
+    }
+    else {
+      selectedPlayer2 = e.target.name;
+      e.target.removeEventListener('click', mortysEvent);
+      e.target
+      document.querySelector('.select__player').style.visibility = 'hidden';
+      startButton.classList.remove('button__start--inactive');
+      startButton.classList.add('button__start--active');
+      startButton.addEventListener('click', function(){
+        clearInterval(counter);
+        oxo.screens.loadScreen('game',  game);
+      });
+    }
+  }
+
+  mortys.forEach(element => {
+    element.addEventListener('click', mortysEvent);
+  });
+}
 
 function game() {
+  musicHandler();
+  //Listener de la flèche
+  document.querySelector('.backButton__img').addEventListener('click', function(){
+    oxo.screens.loadScreen('home',  initHome);
+  });
+  
+  //Gère la selection des personnage
+  let player1Picture = document.querySelector('.player1__picture');
+  let player2Picture = document.querySelector('.player2__picture');
+
+  function characterSelection (selected, player){
+    switch(selected){
+      case 'morty':
+       player.classList.add('morty');
+       break;
+      case 'roux':
+       player.classList.add('red');
+       break;
+      case 'martien':
+        player.classList.add('martien');
+        break;
+      case 'choubab':
+        player.classList.add('choubab');
+      break;
+    }
+  }
+
+  characterSelection(selectedPlayer1, player1Picture);
+  characterSelection(selectedPlayer2, player2Picture);
+
   //Joueur 1 joue en premier
   let turn = 'player1';
   
   let player1 = document.querySelector('.player1');
   let player2 = document.querySelector('.player2');
+
   const tiles = document.querySelectorAll('.game__tile');
   const walls = document.querySelectorAll('.game__wall');
 
@@ -182,10 +363,14 @@ function game() {
         tile.appendChild(player);
         //Vérifie la victoire
         if (player1.parentNode.dataset.column == 9) {
-          oxo.screens.loadScreen('end');
+          winner = 'Player 1';
+          console.log(winner);
+          oxo.screens.loadScreen('end', initEnd);
         }
         if (player2.parentNode.dataset.column == 1) {
-          oxo.screens.loadScreen('end');
+          winner = 'Player 2';
+          console.log(winner);
+          oxo.screens.loadScreen('end', initEnd);
         };
       }, 1000);
     }
@@ -390,4 +575,19 @@ function game() {
     }
   }
   initGame();
+}
+
+function initEnd(){
+  musicHandler();
+  credits();
+  document.querySelector('.end__winner').innerHTML += winner;
+  document.querySelector('.button__restart').addEventListener('click', function (){
+    oxo.screens.loadScreen('game', game);
+  });
+  document.querySelector('.button__menu').addEventListener('click', function (){
+    oxo.screens.loadScreen('home', initHome);
+  });
+  document.querySelector('.button__credits').addEventListener('click', function (){
+    console.log('clicked');
+  });
 }

@@ -1,4 +1,7 @@
 <!-- Taille navigateur 1280*800 -->
+<div class="game__backButton">
+  <img class="backButton__img" src="../assets/img/arrow.png">
+</div>
 <div class="game__grid">
   <!-- tiles row -->
   <div class="game__tile"></div>
@@ -151,9 +154,11 @@
   <div class="game__wall"></div>
   <div class="game__tile"></div>
   <div class="game__wall"></div>
-  <div class="game__tile"><div class="game__character player2">
-    <img class="player2__picture" src='../img/choubab-profil.gif'>
-  </div></div>
+  <div class="game__tile">
+    <div class="game__character player2">
+      <p class="player2__picture"></p>
+    </div>
+  </div>
   <div class="game__wall"></div>
   <div class="game__tile"></div>
   <div class="game__wall"></div>
@@ -192,9 +197,11 @@
     
 </div>
   <div class="game__wall"></div>
-  <div class="game__tile"><div class="game__character player1">
-      <img class="player1__picture" src='../img/martien.gif'>
-    </div></div>
+  <div class="game__tile">
+    <div class="game__character player1">
+      <p class="player1__picture"></p>
+    </div>
+  </div>
   <div class="game__wall"></div>
   <div class="game__tile"></div>
   <div class="game__wall"></div>
@@ -315,5 +322,11 @@
   <div class="game__tile"></div>
   <div class="game__wall"></div>
   <div class="game__tile"></div>
-
 </div>
+<section class="home__footer">
+    <audio id="audioPlayer" loop>
+      <source src="../assets/audio/Rick_Morty_Music.mp3" />
+    </audio>
+    <div class="footer__soundOff"></div>
+    <div class="footer__soundOn"></div>
+  </section>

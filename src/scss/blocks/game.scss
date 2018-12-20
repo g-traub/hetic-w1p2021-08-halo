@@ -43,10 +43,15 @@
   70%  { transform: translateY(138px)  translateX(0); }
   100% { transform: translateY(138px)  translateX(0); }
 }
+.game__backButton{
+  position: absolute;
+  top:20px;
+  left:20px;
+  cursor: pointer;
+}
 
-body{
-  background-image: url('../img/bg2.png');
-  background-size: 100%;
+.backButton__img{
+  width:40px;
 }
 .game__grid{
   width: 600px;
@@ -77,27 +82,42 @@ body{
 }
 
 .game__character{
-  width:30px;
-  height:30px;
-  
+  width:90px;
+  height:90px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items:flex-end;
+  margin-top: -50px;
   font-size: 12px;
   z-index: 1;
 }
 
+.player1__picture, .player2__picture{
+  width: 90px;
+  height: 90px;
+}
 .player1__picture{
   transform: scaleX(-1);
 }
+
+.morty{
+  background-image: url('../assets/img/morty.gif');
+}
+.red{
+  background-image: url('../assets/img/roux.gif');
+}
+.martien{
+  background-image: url('../assets/img/martien.gif');
+}
+.choubab{
+  background-image: url('../assets/img/choubab.gif');
+}
+
 .game__wall--clicked.game__wall--horizontal{
-  background-image: url('../img/Laser3.gif');
+  background-image: url('../assets/img/Laser3.gif');
   background-size: cover;
   background-position: center;
 }
 .game__wall--clicked.game__wall--vertical{
-  background-image: url('../img/Laser3-vertical.gif');
+  background-image: url('../assets/img/Laser3-vertical.gif');
   background-size: cover;
   background-position: center;
 }
