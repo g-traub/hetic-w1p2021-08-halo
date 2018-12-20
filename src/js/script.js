@@ -138,6 +138,7 @@ function initHome() {
       startButton.classList.remove("button__start--inactive");
       startButton.classList.add("button__start--active");
       startButton.addEventListener("click", function() {
+        clearInterval(counter);
         oxo.screens.loadScreen("game", game);
       });
     }
