@@ -140,7 +140,6 @@ function initHome() {
       startButton.classList.remove("button__start--inactive");
       startButton.classList.add("button__start--active");
       startButton.addEventListener("click", function() {
-        clearInterval(counter);
         oxo.screens.loadScreen("game", game);
       });
     }
@@ -153,10 +152,16 @@ function initHome() {
 
 function game() {
   musicHandler();
+  let intervalRick = setInterval(function(){
+    let random = Math.floor(Math.random() * ( 6 - 1 +1)) + 1;
+    document.getElementById(`${random}`).play();
+  },
+  10000)
   //Listener de la flèche
   document
     .querySelector(".backButton__img")
     .addEventListener("click", function() {
+      clearInterval(intervalRick);
       oxo.screens.loadScreen("home", initHome);
     });
 
@@ -235,8 +240,6 @@ function game() {
 
     //numérote les cases
     tiles.forEach(element => {
-      /* let random = Math.floor(Math.random() * ( 5 - 1 +1)) + 1;
-      element.classList.add(`tile${random}`); */
       element.addEventListener("click", function() {
         clickHandler(element);
       });
@@ -762,10 +765,12 @@ function game() {
         //Vérifie la victoire
         if (player1.parentNode.dataset.column == 9) {
           winner = "Player 1";
+          clearInterval(counter);
           oxo.screens.loadScreen("end", initEnd);
         }
         if (player2.parentNode.dataset.column == 1) {
           winner = "Player 2";
+          clearInterval(counter);
           oxo.screens.loadScreen("end", initEnd);
         }
       }, 1000);
