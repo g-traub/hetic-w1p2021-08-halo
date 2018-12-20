@@ -79,9 +79,7 @@ function initHome() {
   });
   startButton.addEventListener("mouseout", function() {
     clearInterval(counter);
-    document
-      .querySelector(".easteregg__rick")
-      .classList.remove("easteregg__rick--visible");
+    document.querySelector(".easteregg__rick").classList.remove("easteregg__rick--visible");
   });
 
   //Gestion du carousel pour les règles
