@@ -43,6 +43,13 @@
   70%  { transform: translateY(138px)  translateX(0); }
   100% { transform: translateY(138px)  translateX(0); }
 }
+
+@keyframes jumping {
+  to {
+    transform: translateY(-5px)
+  }
+}
+
 .game__backButton{
   position: absolute;
   top:20px;
@@ -82,6 +89,7 @@
 }
 
 .game__character{
+  position: relative;
   width:90px;
   height:90px;
   border-radius: 50%;
@@ -152,4 +160,21 @@
 
 .empty{
   background-color:  rgba(247, 247, 247, 0.8);
+}
+
+.--playing {
+  .arrow { 
+  position: absolute;
+  display: initial;
+  animation: jumping 1s ease 0s infinite alternate none running;
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: -30px;
+  left: 27px;
+  width: 30px;
+  height: 30px;
+  display: none;
 }

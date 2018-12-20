@@ -190,6 +190,37 @@ function game() {
   const tiles = document.querySelectorAll('.game__tile');
   const walls = document.querySelectorAll('.game__wall');
 
+  function changeTurn() {
+    if (turn === 'player1') {
+      turn = 'player2'
+      player2.classList.add('--playing')
+      player1.classList.remove('--playing')
+    }
+    else {
+      turn = 'player1';
+      player1.classList.add('--playing')
+      player2.classList.remove('--playing')
+    }
+    let accessibleTiles = document.querySelectorAll('.game__tile.game__tile--accessible');
+    accessibleTiles.forEach(element => {
+    element.classList.remove('game__tile--accessible');
+    });
+    timer = 30;
+  }
+
+var timer;
+var timeLeft;
+
+timer=30;
+
+timeLeft = setInterval (function (){
+    timer --;
+    if(timer<0){
+        changeTurn();
+    }
+    console.log (timer);
+}, 1000);
+
   function initGame() {
     let row = 1;
     let column = 1;
@@ -304,6 +335,273 @@ function game() {
       }
     }
   }
+
+  function sandbox(player) {
+
+    let countOut = 0; //arrête l'algo si >404
+    let direction = 0; //teste une direction selon sa valeur
+    
+    let x = player1.parentElement.dataset.row;
+    let y = player1.parentElement.dataset.column;
+
+    if(turn == 'player2') {
+      x = player2.parentElement.dataset.row;
+      y = player2.parentElement.dataset.column;
+    }
+    console.log(x, y)
+
+
+    
+
+    let tileAbove = document.querySelector(`.game__tile[data-column='${y}'][data-row='${parseInt(x) - 1}']`);
+    let tileBeneath = document.querySelector(`.game__tile[data-column='${y}'][data-row='${parseInt(x) + 1}']`);
+    let tileLeft = document.querySelector(`.game__tile[data-column='${parseInt(y) - 1}'][data-row='${x}']`);
+    let tileRight = document.querySelector(`.game__tile[data-column='${parseInt(y) + 1}'][data-row='${x}']`);
+    let currentTile = document.querySelector(`.game__tile[data-column='${y}'][data-row='${x}']`);
+
+    function update() { //Met a jour la vérification des tuiles
+      tileAbove = document.querySelector(`.game__tile[data-column='${y}'][data-row='${parseInt(x) - 1}']`);
+      tileBeneath = document.querySelector(`.game__tile[data-column='${y}'][data-row='${parseInt(x) + 1}']`);
+      tileLeft = document.querySelector(`.game__tile[data-column='${parseInt(y) - 1}'][data-row='${x}']`);
+      tileRight = document.querySelector(`.game__tile[data-column='${parseInt(y) + 1}'][data-row='${x}']`);
+      currentTile = document.querySelector(`.game__tile[data-column='${y}'][data-row='${x}']`);
+      }
+      
+
+    function checkAbove() { //if true: dispo
+      if(x < 9 && tileAbove && !currentTile.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.classList.contains('game__wall--clicked')) {
+        return true;
+      } else {
+        return false;
+      } 
+    }
+
+
+    function checkBeneath () {
+      if (x > 0 && tileBeneath && !currentTile.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.classList.contains('game__wall--clicked')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function checkLeft () {
+      if (tileLeft && !currentTile.previousElementSibling.classList.contains('game__wall--clicked')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    function checkRight () {
+      if (tileRight && !currentTile.nextElementSibling.classList.contains('game__wall--clicked')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    /* function success() { //check si possible d'atteindre l'opposé
+    if (y == 9) {
+      return true;
+      } else {
+        return false;
+      }
+    } */
+
+
+    function mazeSolver() {  
+      if(turn === 'player2') { 
+    while (y !== 1 && countOut < 404) { // to recursive switch
+     
+      console.log(currentTile);
+      console.log(direction)
+     
+    switch (direction) {
+      case 0: 
+        if(checkLeft(player)) {
+          y--;
+          update();
+          countOut++
+          break;
+        } else {
+          direction++;
+          countOut++;
+          break;
+        }
+      case 1:
+            if (checkLeft(player)) {
+            y--;
+            update();
+            direction--;
+            countOut++;
+            break;
+          }
+          else if (checkAbove(player)) {
+          x--;
+          update();
+          countOut++;
+          break;
+        }  else {
+          countOut++
+          direction++
+          break;
+        }
+
+      case 2:
+      if (checkAbove(player)) {
+        x--;
+        update();
+        direction--;
+        countOut++;
+        break;
+      }  else if (checkRight(player)) {
+        y++;
+        update();
+        countOut++;
+        break;
+      } else { 
+          direction++;
+          countOut++;
+          break;
+        }
+      case 3:
+        if (checkRight(player)) {
+          y++;
+          update();
+          direction--;
+          countOut++;
+          break;
+        } else if (checkBeneath(player)) {
+          x++
+          update()
+          countOut++;
+          break;
+        } else {
+          direction++
+          break;
+        }
+        case 4:
+          if (checkLeft(player)) {
+            y--;
+            update();
+            break;
+          } else if (checkBeneath()) {
+            x++;
+            update();
+            direction--;
+            break;
+          } else {
+            console.log('true');
+            return true;
+          }
+        
+
+      } //switch end
+      }//while end
+    } // if end
+    else {
+      while (y !== 9 && countOut < 404) { // to recursive switch
+     
+        console.log(currentTile);
+        console.log(direction)
+       
+      switch (direction) {
+        case 0: 
+          if(checkRight(player)) {
+            y++;
+            update();
+            countOut++
+            break;
+          } else {
+            direction++;
+            countOut++;
+            break;
+          }
+        case 1:
+              if (checkRight(player)) {
+              y++;
+              update();
+              direction--;
+              countOut++;
+              break;
+            }
+            else if (checkAbove(player)) {
+            x--;
+            update();
+            countOut++;
+            break;
+          }  else {
+            countOut++
+            direction++
+            break;
+          }
+  
+        case 2:
+        if (checkAbove(player)) {
+          x--;
+          update();
+          direction--;
+          countOut++;
+          break;
+        }  else if (checkLeft(player)) {
+          y--;
+          update();
+          countOut++;
+          break;
+        } else { 
+            direction++;
+            countOut++;
+            break;
+          }
+        case 3:
+          if (checkLeft(player)) {
+            y--;
+            update();
+            direction--;
+            countOut++;
+            break;
+          } else if (checkBeneath(player)) {
+            x++
+            update()
+            countOut++;
+            break;
+          } else {
+            direction++
+            break;
+          }
+          case 4:
+            if (checkRight(player)) {
+              y++
+              update();
+              break;
+            } else if (checkBeneath()) {
+              x++;
+              update();
+              direction--;
+              break;
+            } else {
+              console.log('true');
+              return true;
+            }
+          
+  
+        } //switch end
+        }//while end
+
+    }
+  }//mazeSolver end
+
+  mazeSolver()
+  if (mazeSolver()) {
+    return true;
+  } else {
+    return false;
+  }
+
+  };//sandbox end
+
+
 
   //Gère le mouvement
   function move(player, tile, mouvement) {
@@ -428,123 +726,132 @@ function game() {
   }
   //Gère le placement des murs
 
-  for (let i = 0; i < walls.length; i++) {
-    let wall = walls[i];
-    let testRow = wall.dataset.row;
-    let testColumn = wall.dataset.column;
+  function placeWalls() { 
 
-    //True = pas de collisions
-    function collide() {
-      if (wall.classList.contains('game__wall--clicked') || wall.dataset.row > 16 || wall.dataset.column > 8) {
-        return false;
+  
+    for (let i = 0; i < walls.length; i++) {
+      let wall = walls[i];
+      let testRow = wall.dataset.row;
+      let testColumn = wall.dataset.column;
+  
+      //True = pas de collisions
+      function collide () {
+        if (wall.classList.contains('game__wall--clicked')  || wall.dataset.row > 16 || wall.dataset.column > 8) {
+          return false;
+        }
+        //Lignes
+        if (wall.dataset.row % 2 == 0) {
+          if (walls[i - 8].classList.contains('game__wall--clicked') && walls[i + 9].classList.contains('game__wall--clicked')) {
+            return false;
+          }
+          else if (walls[i+1].classList.contains('game__wall--clicked')){
+            return false;
+          }
+          else {
+            return true;
+          }
+        } else { // Colonnes
+          if (walls[i + 8].classList.contains('game__wall--clicked') && (walls[i + 9].classList.contains('game__wall--clicked'))) {
+            return false;
+          }
+          else if (walls[i+17].classList.contains('game__wall--clicked')){
+            return false;
+          }
+          else {
+            return true;
+          }
+        }
       }
-      //Lignes
-      if (wall.dataset.row % 2 == 0) {
-        if (walls[i - 8].classList.contains('game__wall--clicked') && walls[i + 9].classList.contains('game__wall--clicked')) {
-          return false;
-        }
-        else if (walls[i + 1].classList.contains('game__wall--clicked')) {
-          return false;
-        }
-        else {
-          return true;
-        }
-      } else { // Colonnes
-        if (walls[i + 8].classList.contains('game__wall--clicked') && (walls[i + 9].classList.contains('game__wall--clicked'))) {
-          return false;
-        }
-        else if (walls[i + 17].classList.contains('game__wall--clicked')) {
-          return false;
-        }
-        else {
-          return true;
-        }
-      }
-    }
-
-    function hover() {
-      wall.addEventListener('mouseover', function () {
-        if (wall.dataset.column > 8) {
-          wall.classList.add('--hover');
-          walls[i - 1].classList.add('--hover');
-        }
-        else if (wall.dataset.row > 16) {
-          wall.classList.add('--hover');
-          walls[i - 17].classList.add('--hover');
-
-        }
-        else if (collide()) {
-          if (!wall.classList.contains('game__wall--clicked')) { //fonctionnement collide (éviter le double modificateur)
+  
+      function hover() {
+        wall.addEventListener('mouseover', function () {
+          if (collide()) {
+          if (wall.dataset.column > 8){
             wall.classList.add('--hover');
-            if (wall.dataset.row % 2 == 0) { // Permet de savoir si il s'agit d'un mur vertical ou horizontal
-              walls[i + 1].classList.add('--hover');
-            } else {
-              walls[i + 17].classList.add('--hover');
+            walls[i - 1].classList.add('--hover');
+          }
+          else if (wall.dataset.row > 16){
+            wall.classList.add('--hover');
+            walls[i - 17].classList.add('--hover');
+            
+          }
+          
+            if (!wall.classList.contains('game__wall--clicked')) { //fonctionnement collide (éviter le double modificateur)
+              wall.classList.add('--hover');
+              if (wall.dataset.row % 2 == 0) { // Permet de savoir si il s'agit d'un mur vertical ou horizontal
+                walls[i + 1].classList.add('--hover');
+              } else {
+                walls[i + 17].classList.add('--hover');
+              }
             }
           }
-        }
-      });
-
-      wall.addEventListener('mouseout', function () {
-        if (wall.dataset.column > 8) {
-          wall.classList.remove('--hover');
-          walls[i - 1].classList.remove('--hover');
-        }
-        else if (wall.dataset.row > 16) {
-          wall.classList.remove('--hover');
-          walls[i - 17].classList.remove('--hover');
-
-        }
-        else if (collide()) {
-          wall.classList.remove('--hover');
-          if (wall.dataset.row % 2 == 0) { // Permet de savoir si il s'agit d'un mur vertical ou horizontal
-            walls[i + 1].classList.remove('--hover');
-          } else {
-            walls[i + 17].classList.remove('--hover');
+        });
+  
+        wall.addEventListener('mouseout', function () {
+          if (collide()) {
+          if (wall.dataset.column > 8){
+            wall.classList.remove('--hover');
+            walls[i - 1].classList.remove('--hover');
           }
-        }
-      });
+          else if (wall.dataset.row > 16){
+            wall.classList.remove('--hover');
+            walls[i - 17].classList.remove('--hover');  
+          }
+            wall.classList.remove('--hover');
+            if (wall.dataset.row % 2 == 0) { // Permet de savoir si il s'agit d'un mur vertical ou horizontal
+                walls[i + 1].classList.remove('--hover');
+              } else {
+                walls[i + 17].classList.remove('--hover');
+              }
+          }
+        });
+      }
+  
+      function click() {
+        wall.addEventListener('click', function () {
+          if (collide()) {
+            if (wall.dataset.column > 8){
+              wall.classList.add('game__wall--clicked');
+              walls[i - 1].classList.add('game__wall--clicked');
+            }
+            else if (wall.dataset.row > 16){
+              wall.classList.add('game__wall--clicked');
+              walls[i - 17].classList.add('game__wall--clicked');
+            }
+            
+              wall.classList.add('game__wall--clicked');
+              wall.classList.remove('--hover');
+              
+              if (wall.dataset.row % 2 == 0) {
+                walls[i + 1].classList.add('game__wall--clicked');
+                walls[i + 1].classList.remove('--hover');
+              } else {
+                walls[i + 17].classList.add('game__wall--clicked');
+                walls[i + 17].classList.remove('--hover');
+              }
+              changeTurn()
+              sandbox()
+              if(sandbox(player1) == true) {
+                wall.classList.remove('game__wall--clicked')
+                alert('impo..po...possible Morty!')
+              }
+            }
+        }); 
+      };
+      click();
+      hover();
     }
-
-    function click() {
-      wall.addEventListener('click', function () {
-        if (wall.dataset.column > 8) {
-          wall.classList.add('game__wall--clicked');
-          walls[i - 1].classList.add('game__wall--clicked');
-          wall.classList.remove('--hover');
-          walls[i - 1].classList.remove('--hover');
-        }
-        else if (wall.dataset.row > 16) {
-          wall.classList.add('game__wall--clicked');
-          walls[i - 17].classList.add('game__wall--clicked');
-          wall.classList.remove('--hover');
-          walls[i - 17].classList.remove('--hover');
-
-        }
-        else if (collide()) {
-          wall.classList.add('game__wall--clicked');
-          wall.classList.remove('--hover');
-
-          if (wall.dataset.row % 2 == 0) {
-            walls[i + 1].classList.add('game__wall--clicked');
-            walls[i + 1].classList.remove('--hover');
-
-          } else {
-            walls[i + 17].classList.add('game__wall--clicked');
-            walls[i + 17].classList.remove('--hover');
-          }
-        }
-      });
-    };
-    click();
-    hover();
   }
+  placeWalls();
 
   //GESTION DU CLIC
   function clickHandler(clicked) {
     if (turn === 'player1') {
       if (clicked.firstElementChild == player1) {
         checkAround(player1);
+        for(i=0; i < walls.length; i++) {
+          walls[i].classList.remove('--hover')
+        }
       }
       else if (clicked.classList.contains('game__tile--accessible')) {
         if (clicked.classList.contains('--special')) {
@@ -554,8 +861,13 @@ function game() {
 
         //change le tour
         if (move(player1, clicked, 'walk')) {
-          turn = 'player2';
-        }
+          changeTurn()
+      }
+    } else {
+      let accessibleTiles = document.querySelectorAll('.game__tile.game__tile--accessible');
+        accessibleTiles.forEach(element => {
+        element.classList.remove('game__tile--accessible');
+        });
       }
     }
     if (turn === 'player2') {
@@ -569,7 +881,7 @@ function game() {
         move(player2, clicked, 'walk');
 
         if (move(player2, clicked, 'walk')) {
-          turn = 'player1';
+          changeTurn();
         }
       }
     }
