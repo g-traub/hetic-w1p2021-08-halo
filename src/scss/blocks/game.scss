@@ -57,6 +57,15 @@
   cursor: pointer;
 }
 
+.game__timer{
+  position: absolute;
+  font-family: "VT323", regular;
+  font-size: 60px;
+  color: #6FC149;
+  top:150px;
+  left:50px;
+  text-align: center;
+}
 .backButton__img{
   width:40px;
 }
