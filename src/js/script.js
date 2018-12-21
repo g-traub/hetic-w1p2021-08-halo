@@ -71,9 +71,7 @@ function initHome() {
     counter = setInterval(function() {
       count++;
       if (count === 5) {
-        document
-          .querySelector(".easteregg__rick")
-          .classList.add("easteregg__rick--visible");
+        document.querySelector(".easteregg__rick").classList.add("easteregg__rick--visible");
       }
     }, 1000);
   });
