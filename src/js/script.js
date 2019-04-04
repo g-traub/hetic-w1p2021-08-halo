@@ -197,6 +197,7 @@ function game() {
 
   function changeTurn() {
     setTimeout(function() {
+    timer = 31;      
       if (turn === "player1") {
         turn = "player2";
         player2.classList.add("--playing");
@@ -211,9 +212,8 @@ function game() {
       );
       accessibleTiles.forEach(element => {
         element.classList.remove("game__tile--accessible");
-      });
-    }, 1000);
-    timer = 31;
+      }); 
+    }, 900);
   }
 
   var timer;
@@ -221,10 +221,13 @@ function game() {
   let timerDisplay = document.querySelector(".timer__number");
 
   timer = 30;
+  timerDisplay.innerHTML = timer;
 
   timeLeft = setInterval(function() {
-    timer--;
-    if (timer < 1) {
+    if  (timer > 0){
+      timer--;
+    }
+    else {
       changeTurn();
     }
     timerDisplay.innerHTML = timer;
