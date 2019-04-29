@@ -598,12 +598,12 @@ window.oxo = {
   /**
    * A function that will be run when oxo is called in order to init the game
    */
-  init() {
+/*   init() {
    
     oxo.inputs.listenAllKeys();
     oxo.player.setScore(0);
   },
-
+ */
   /**
    * Pretty logger for oxo events
    * @param {string} message - The information to log
@@ -621,4 +621,4 @@ window.oxo = {
   },
 };
 
-window.oxo.init();
+/* window.oxo.init(); */
